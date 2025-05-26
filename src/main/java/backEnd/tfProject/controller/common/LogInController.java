@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/tf")
+@RequestMapping("/api")
 public class LogInController {
 
     @Autowired
