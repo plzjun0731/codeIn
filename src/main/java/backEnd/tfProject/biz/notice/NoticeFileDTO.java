@@ -9,5 +9,4 @@ public class NoticeFileDTO {
     private String fileName; //첨부파일 이름
     private String filePath; //첨부파일 경로
     private Long fileSize; //첨부파일 사이즈
-
 }
