@@ -1,4 +1,4 @@
-package codein.back.biz.member;
+package codein.back.biz.domain.member;
 
 import lombok.Data;
 

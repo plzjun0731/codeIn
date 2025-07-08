@@ -1,5 +1,6 @@
-package codein.back.biz.member;
+package codein.back.biz.dao.member;
 
+import codein.back.biz.domain.member.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -73,6 +74,7 @@ public class MemberDAO {
     public boolean delete(MemberDTO memberDTO){
         // 멤버 삭제는 없습니다. 퇴사한 회원은 등급을 3으로 변경해 관리합니다. (update 기능으로 넣겠습니다)
         // 모든 접근 기록은 로그로 기록합니다.
+        // 서버 로그 로컬 로그 모두 기록하기로 합니다.
         return false;
     }
 
@@ -84,6 +86,11 @@ class LoginRowMapper implements RowMapper<MemberDTO> {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMemberId(rs.getString("MEMBER_ID"));
         memberDTO.setMemberPw(rs.getString("MEMBER_PW"));
+        memberDTO.setMemberName(rs.getString("MEMBER_NAME"));
+        memberDTO.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+        memberDTO.setMemberPhone(rs.getString("MEMBER_PHONE"));
+        memberDTO.setMemberRole(rs.getInt("MEMBER_ROLE"));
+
         return memberDTO;
     }
 }

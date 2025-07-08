@@ -1,6 +1,5 @@
 package codein.back.biz.manual;
 
-import codein.back.biz.member.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

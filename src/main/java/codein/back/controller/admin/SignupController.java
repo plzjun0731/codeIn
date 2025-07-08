@@ -1,16 +1,12 @@
 package codein.back.controller.admin;
 
-import codein.back.biz.member.MemberDTO;
-import codein.back.biz.member.MemberService;
-import jakarta.servlet.http.HttpSession;
+import codein.back.biz.domain.member.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @RequiredArgsConstructor
 @Controller
