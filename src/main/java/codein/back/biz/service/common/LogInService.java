@@ -71,7 +71,7 @@ public class LogInService {
 
         session.invalidate();
 
-        System.out.println("LogInService Out 로그 =[" + session.toString() + "]");
+        System.out.println("LogInService Out 로그");
     }
 
 }
