@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/tf")
 public class SignupController {
-  @Autowired
-  private MemberService memberService;
 
-  @PostMapping("/signup")
-  public ResponseEntity<Void> signup(@RequestBody MemberDTO memberDTO) {
-    boolean success = memberService.insert(memberDTO);
-    if(success) {
-      return ResponseEntity.status(HttpStatus.CREATED).build();
-    } else {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
-  }
+//  @Autowired
+//  private MemberService memberService;
+//
+//  @PostMapping("/signup")
+//  public ResponseEntity<Void> signup(@RequestBody MemberDTO memberDTO) {
+//    boolean success = memberService.insert(memberDTO);
+//    if(success) {
+//      return ResponseEntity.status(HttpStatus.CREATED).build();
+//    } else {
+//      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//    }
+//  }
 }

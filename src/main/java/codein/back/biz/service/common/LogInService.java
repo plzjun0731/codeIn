@@ -39,6 +39,8 @@ public class LogInService {
             return response;
         }
 
+        System.out.println("LogInService Out 로그 =[" + memberDTO + "]");
+
         setUserSession(session, result);
         return createLogInResponse(result);
     }
@@ -64,7 +66,12 @@ public class LogInService {
 
     // 로그아웃 기능 추가
     public void logout(HttpSession session) {
+
+        System.out.println("LogOutService In 로그 =[" + session.getAttribute("memberId") + "]");
+
         session.invalidate();
+
+        System.out.println("LogInService Out 로그 =[" + session.toString() + "]");
     }
 
 }
