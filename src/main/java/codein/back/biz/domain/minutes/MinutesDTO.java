@@ -1,4 +1,4 @@
-package codein.back.biz.minutes;
+package codein.back.biz.domain.minutes;
 
 import lombok.Data;
 
