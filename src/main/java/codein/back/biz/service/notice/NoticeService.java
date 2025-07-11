@@ -1,5 +1,7 @@
-package codein.back.biz.notice;
+package codein.back.biz.service.notice;
 
+import codein.back.biz.dao.notice.NoticeDAO;
+import codein.back.biz.domain.notice.NoticeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

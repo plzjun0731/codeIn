@@ -1,4 +1,4 @@
-package codein.back.biz.notice;
+package codein.back.biz.domain.notice;
 
 import lombok.Data;
 

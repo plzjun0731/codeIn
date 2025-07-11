@@ -1,8 +1,8 @@
 package codein.back.controller.notice;
 
 
-import codein.back.biz.notice.NoticeDTO;
-import codein.back.biz.notice.NoticeService;
+import codein.back.biz.domain.notice.NoticeDTO;
+import codein.back.biz.service.notice.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

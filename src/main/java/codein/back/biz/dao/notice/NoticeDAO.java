@@ -1,5 +1,7 @@
-package codein.back.biz.notice;
+package codein.back.biz.dao.notice;
 
+import codein.back.biz.domain.notice.NoticeDTO;
+import codein.back.biz.domain.notice.NoticeFileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
