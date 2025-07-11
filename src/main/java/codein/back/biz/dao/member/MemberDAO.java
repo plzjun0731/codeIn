@@ -1,11 +1,13 @@
 package codein.back.biz.dao.member;
 
 import codein.back.biz.domain.member.MemberDTO;
+import codein.back.biz.domain.member.MemberResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,17 +18,29 @@ public class MemberDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final String SELECTONE_LOGIN =   "SELECT * FROM MEMBER " +
-                                                    "WHERE MEMBER_ID = ? AND " +
-                                                    "MEMBER_PW = ?";
+            "WHERE MEMBER_ID = ?";
 
     private static final String INSERT_MEMBER = "INSERT INTO MEMBER " +
-        "(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_ROLE) " +
-        "VALUES (?, ?, ?, ?, ?, ?)";
+            "(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_ROLE) " +
+            "VALUES (?, ?, ?, ?, ?, ?)";
 
-    public List<MemberDTO> selectAll(MemberDTO memberDTO){
-        return null;
+    public List<MemberResponseDTO> selectAll(){
+        String sql = "SELECT * FROM MEMBER";
+        List<MemberDTO> members = jdbcTemplate.query(sql, new LoginRowMapper());
+
+        return members.stream().map(member -> {
+            MemberResponseDTO dto = new MemberResponseDTO();
+            dto.setMemberId(member.getMemberId());
+            dto.setMemberName(member.getMemberName());
+            dto.setMemberEmail(member.getMemberEmail());
+            dto.setMemberPhone(member.getMemberPhone());
+            dto.setMemberRole(member.getMemberRole());
+            return dto;
+        }).toList();
     }
 
     @Transactional
@@ -35,10 +49,15 @@ public class MemberDAO {
         System.out.println("MemberDAO(selectOne) In로그 =["+memberDTO+"]");
         try {
             if(memberDTO.getSearchCondition().equals("login")){
-                Object[] args = {memberDTO.getMemberId(),memberDTO.getMemberPw()};
+                Object[] args = {memberDTO.getMemberId()};
                 result = jdbcTemplate.queryForObject(SELECTONE_LOGIN, args, new LoginRowMapper());
-                System.out.println("MemberDAO(selectOne) Out로그 =["+result+"]");
-                return result;
+                if(bCryptPasswordEncoder.matches(memberDTO.getMemberPw(), result.getMemberPw())){
+                    System.out.println("MemberDAO(selectOne) Out로그 =["+result+"]");
+                    return result;
+                } else {
+                    System.out.println("MemberDAO(selectOne) Out로그 =[" + result + "]");
+                    return result;
+                }
             }
         } catch(Exception e){
             e.printStackTrace();
@@ -52,8 +71,8 @@ public class MemberDAO {
         try {
             if(memberDTO.getSearchCondition().equals("signup")){
                 Object[] args = {memberDTO.getMemberId(),memberDTO.getMemberPw(),
-                    memberDTO.getMemberName(),memberDTO.getMemberEmail(),
-                    memberDTO.getMemberPhone(),memberDTO.getMemberRole()};
+                        memberDTO.getMemberName(),memberDTO.getMemberEmail(),
+                        memberDTO.getMemberPhone(),memberDTO.getMemberRole()};
 
                 int rows = jdbcTemplate.update(INSERT_MEMBER, args);
                 return rows > 0;
@@ -63,7 +82,7 @@ public class MemberDAO {
             e.printStackTrace();
             return false;
         }
-      return false;
+        return false;
     }
 
     public boolean update(MemberDTO memberDTO){
