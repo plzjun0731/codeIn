@@ -1,5 +1,6 @@
-package codein.back.biz.manual;
+package codein.back.biz.dao.manual;
 
+import codein.back.biz.domain.manual.ManualDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,8 +19,8 @@ public class ManualDAO {
 
     private static final String SELECTALL = " ";
 
-    private static final String SELECTONE = " SELECT * FORM BOARD_MANUAL" +
-            "WHERE MANUAL_ID = ( SELECT MAX(MANUAL_ID) FROM BOARD_MANUAL) ";
+    private static final String SELECTONE = " SELECT * FROM BOARD_MANUAL " +
+            "WHERE MANUAL_ID = ( SELECT MAX(MANUAL_ID) FROM BOARD_MANUAL)";
 
     private static final String INSERT = " INSERT INTO BOARD_MANUAL(" +
             "MANUAL_SCRIPT," +
@@ -38,8 +39,10 @@ public class ManualDAO {
     @Transactional
     public ManualDTO selectOne(ManualDTO manualDTO) { // 텍스트 에리어에 투명하게 출력해줄 때 사용
         ManualDTO result;
+        System.out.println("ManualDAO IN로그 (selectOne) = ["+manualDTO+"]");
         try{
             result=jdbcTemplate.queryForObject(SELECTONE,new SelectOneRowMapper());
+            System.out.println("ManualDAO Out로그 (selectOne) = ["+result+"]");
             return result;
         } catch (Exception e){
             e.printStackTrace();
@@ -65,10 +68,11 @@ class SelectOneRowMapper implements RowMapper<ManualDTO> {
     @Override
     public ManualDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
         ManualDTO manualDTO = new ManualDTO();
-        manualDTO.setManualDate(rs.getString("MANUAL_DATE"));
+        manualDTO.setManualId(rs.getString("MANUAL_ID"));
+        manualDTO.setManualScript(rs.getString("MANUAL_SCRIPT"));
+        manualDTO.setManualCheckList(rs.getString("MANUAL_CHECKLIST")); // MANUAL_CHECK_LIST가 아닌 MANUAL_CHECKLIST로 수정
         manualDTO.setManualEtc(rs.getString("MANUAL_ETC"));
-        manualDTO.setManualScript(rs.getString("manual_script"));
-        manualDTO.setManualCheckList(rs.getString("manual_check_list"));
         return manualDTO;
+
     }
 }
