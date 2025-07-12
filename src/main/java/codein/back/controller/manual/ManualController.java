@@ -25,7 +25,7 @@ public class ManualController {
     public ResponseEntity<Map<String, Object>> showManual(ManualDTO manualDTO){
         Map<String, Object> response = manualService.showManual(manualDTO);
 
-        System.out.println("ManualController 응답 데이터 = " + response);
+        System.out.println("ManualController 응답");
 
         return ResponseEntity.ok(response);
     }

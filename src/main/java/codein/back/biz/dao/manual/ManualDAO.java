@@ -42,7 +42,7 @@ public class ManualDAO {
         System.out.println("ManualDAO IN로그 (selectOne) = ["+manualDTO+"]");
         try{
             result=jdbcTemplate.queryForObject(SELECTONE,new SelectOneRowMapper());
-            System.out.println("ManualDAO Out로그 (selectOne) = ["+result+"]");
+            System.out.println("ManualDAO Out로그 (selectOne)");
             return result;
         } catch (Exception e){
             e.printStackTrace();

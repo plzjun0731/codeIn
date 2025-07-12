@@ -37,7 +37,7 @@ public class ManualService {
         response.put("status", 1);
         response.put("manual", manualMap);  // Map 형태로 변환된 데이터 전달
 
-        System.out.println("ManualService Out 로그 (showManual) = [" + result + "]");
+        System.out.println("ManualService Out 로그 (showManual)");
 
         return response;
     }
