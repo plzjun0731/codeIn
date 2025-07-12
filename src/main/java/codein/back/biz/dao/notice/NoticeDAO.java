@@ -18,8 +18,8 @@ public class NoticeDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    //공지 사항 제목+ 작성자 이름 목록
-    private static final String SELECTALL="SELECT n.NOTICE_TITLE, m.MEMBER_NAME " +
+    //공지 사항 제목+ 날짜 + 작성자 이름 목록
+    private static final String SELECTALL="SELECT n.NOTICE_TITLE, n.NOTICE_DATE, m.MEMBER_NAME " +
             "FROM BOARD_NOTICE n " +
             "JOIN MEMBER m ON n.MEMBER_ID = m.MEMBER_ID " +
             "ORDER BY n.NOTICE_DATE DESC";
@@ -164,6 +164,7 @@ class SelectListRowMapper implements RowMapper<NoticeDTO> {
     public NoticeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
         NoticeDTO dto = new NoticeDTO();
         dto.setNoticeTitle(rs.getString("NOTICE_TITLE"));
+        dto.setNoticeDate(rs.getString("NOTICE_DATE"));
         dto.setMemberName(rs.getString("MEMBER_NAME"));
         return dto;
     }
