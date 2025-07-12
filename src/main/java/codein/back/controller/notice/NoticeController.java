@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notice")
+@RequestMapping("/api")
 public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
 
     //공지 목록
-    @GetMapping("/list")
+    @GetMapping("/noticeList")
     private ResponseEntity<List<NoticeDTO>> getNotices() {
+//        System.out.println("1도착");
         List<NoticeDTO> list= noticeService.selectAll(new NoticeDTO());
         return ResponseEntity.ok(list);
     }
+
 
     //제목 검색
     @GetMapping("/search")
@@ -43,8 +45,9 @@ public class NoticeController {
     }
 
     //공지 등록
-    @PostMapping("/insert")
+    @PostMapping("/writenotice")
     public ResponseEntity<String> insertNotice(@RequestBody NoticeDTO dto) {
+        System.out.println("공지등록");
         boolean result=noticeService.insert(dto);
         return ResponseEntity.ok(result ?"공지 등록 성공":"공지 등록 실패");
     }
