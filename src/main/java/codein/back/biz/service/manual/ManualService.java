@@ -23,7 +23,7 @@ public class ManualService {
         ManualDTO result = manualDAO.selectOne(manualDTO);
 
         if (result == null) {
-            response.put("status", 0);
+            response.put("status", 1);
             return response;
         }
 
@@ -34,7 +34,7 @@ public class ManualService {
         manualMap.put("manualCheckList", result.getManualCheckList());
         manualMap.put("manualEtc", result.getManualEtc());
 
-        response.put("status", 1);
+        response.put("status", 0);
         response.put("manual", manualMap);  // Map 형태로 변환된 데이터 전달
 
         System.out.println("ManualService Out 로그 (showManual)");
@@ -42,12 +42,20 @@ public class ManualService {
         return response;
     }
 
-//    public Map<String, Object> writeManual(ManualDTO manualDTO){
-//        Map<String, Object> response = new java.util.HashMap<>();
-//
-//        System.out.println("ManualService In로그 (writeManual) = ["+manualDTO+"]");
-//
-//        boolean result = manualDAO.update(manualDTO);
-//    }
+    public Map<String, Object> writeManual(ManualDTO manualDTO){
+        Map<String, Object> response = new java.util.HashMap<>();
+
+        System.out.println("ManualService In로그 (writeManual) = ["+manualDTO+"]");
+
+        boolean result = manualDAO.update(manualDTO);
+
+        if (!result) { // 응답 실패
+            response.put("status",0);
+            return response;
+        }
+
+        response.put("status",1); // 응답 성공
+        return response;
+    }
 
 }

@@ -6,6 +6,7 @@ import codein.back.biz.domain.member.MemberResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class SignUpService {
             memberResponse.setMemberPhone(memberDTO.getMemberPhone());
             memberResponse.setMemberRole(memberDTO.getMemberRole());
 
-            response.put("status", 0);
+            response.put("status", 1);
             response.put("data", memberResponse);
 
             System.out.println("SignUpService Out 로그 (회원가입 성공) =[" + result + "]");
@@ -45,7 +46,7 @@ public class SignUpService {
             return response;
         }
 
-        response.put("status",1);
+        response.put("status",0);
 
         System.out.println("SignUpService Out 로그 (회원가입 실패) =[" + result + "]");
 

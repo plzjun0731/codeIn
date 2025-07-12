@@ -22,11 +22,7 @@ public class ManualDAO {
     private static final String SELECTONE = " SELECT * FROM BOARD_MANUAL " +
             "WHERE MANUAL_ID = ( SELECT MAX(MANUAL_ID) FROM BOARD_MANUAL)";
 
-    private static final String INSERT = " INSERT INTO BOARD_MANUAL(" +
-            "MANUAL_SCRIPT," +
-            "MANUAL_CHECKLIST," +
-            "MANUAL_ETC)" +
-            "VALUES (?,?,?)";
+    private static final String INSERT = " ";
 
     private static final String UPDATE = " ";
 
