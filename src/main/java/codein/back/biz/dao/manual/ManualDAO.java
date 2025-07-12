@@ -24,7 +24,7 @@ public class ManualDAO {
 
     private static final String INSERT = " ";
 
-    private static final String UPDATE = " ";
+    private static final String UPDATE = "UPDATE BOARD_MANUAL SET MANUAL_SCRIPT = ?, MANUAL_CHECKLIST = ?, MANUAL_ETC = ? WHERE MANUAL_ID = 1";
 
     private static final String DELETE = " ";
 
@@ -51,7 +51,16 @@ public class ManualDAO {
     }
 
     public boolean update(ManualDTO manualDTO){
-        return false;
+        try{
+            System.out.println("ManualDAO In로그(update) = ["+manualDTO+"]");
+            Object[] args = {manualDTO.getManualScript(),manualDTO.getManualCheckList(),manualDTO.getManualEtc()};
+            int rows = jdbcTemplate.update(UPDATE, args);
+            System.out.println("ManualDAO Out로그(update)");
+            return rows > 0;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean delete(ManualDTO manualDTO){
