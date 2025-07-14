@@ -27,15 +27,8 @@ public class ManualService {
             return response;
         }
 
-        // DTO를 Map으로 변환하여 응답
-        Map<String, Object> manualMap = new HashMap<>();
-        manualMap.put("manualId", result.getManualId());
-        manualMap.put("manualScript", result.getManualScript());
-        manualMap.put("manualCheckList", result.getManualCheckList());
-        manualMap.put("manualEtc", result.getManualEtc());
-
         response.put("status", 0);
-        response.put("manual", manualMap);  // Map 형태로 변환된 데이터 전달
+        response.put("manual", result);  // Map 형태로 변환된 데이터 전달
 
         System.out.println("ManualService Out 로그 (showManual)");
 

@@ -19,7 +19,7 @@ public class NoticeDAO {
     private JdbcTemplate jdbcTemplate;
 
     //공지 사항 제목+ 날짜 + 작성자 이름 목록
-    private static final String SELECTALL="SELECT n.NOTICE_TITLE, n.NOTICE_DATE, m.MEMBER_NAME " +
+    private static final String SELECTALL="SELECT n.NOTICE_ID, n.NOTICE_TITLE, n.NOTICE_DATE, m.MEMBER_NAME " +
             "FROM BOARD_NOTICE n " +
             "JOIN MEMBER m ON n.MEMBER_ID = m.MEMBER_ID " +
             "ORDER BY n.NOTICE_DATE DESC";
@@ -58,7 +58,17 @@ public class NoticeDAO {
             "DELETE FROM BOARD_FILE WHERE NOTICE_ID = ?";
 
     public List<NoticeDTO> selectAll(NoticeDTO noticeDTO){
-        return jdbcTemplate.query(SELECTALL, new SelectListRowMapper());
+        List<NoticeDTO> result = null;
+        System.out.println("NoticeDAO In로그(selectAll) =["+noticeDTO+"]");
+        try {
+            Object[] args = {noticeDTO.getNoticeId()};
+            result = jdbcTemplate.query(SELECTALL, args, new NoticeListRowMapper());
+            System.out.println("NoticeDAO Out로그(selectAll) =["+result+"]");
+            return result;
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<NoticeDTO> searchNotice(String keyword){
@@ -135,6 +145,19 @@ public class NoticeDAO {
             e.printStackTrace();
             return false;
         }
+    }
+}
+
+class NoticeListRowMapper implements RowMapper<NoticeDTO>{
+    @Override
+    public NoticeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+        NoticeDTO noticeDTO = new NoticeDTO();
+        noticeDTO.setNoticeId(rs.getInt("NOTICE_ID"));
+        noticeDTO.setNoticeTitle(rs.getString("NOTICE_TITLE"));
+        noticeDTO.setNoticeContent(rs.getString("NOTICE_CONTENT"));
+        noticeDTO.setNoticeDate(rs.getString("NOTICE_DATE"));
+
+        return noticeDTO;
     }
 }
 
