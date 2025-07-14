@@ -1,7 +1,7 @@
-package codein.back.biz.service.minutes;
+package codein.back.biz.service.meetingLog;
 
-import codein.back.biz.dao.minutes.MinutesDAO;
-import codein.back.biz.domain.minutes.MinutesDTO;
+import codein.back.biz.dao.meetingLog.MeetingLogDAO;
+import codein.back.biz.domain.meetingLog.MeetingLogDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,17 +9,17 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
-@Service("minutesService")
-public class MinutesService {
+@Service("meetingLogService")
+public class MeetingLogService {
 
     @Autowired
-    private MinutesDAO minutesDAO;
+    private MeetingLogDAO meetingLogDAO;
 
     // 회의록 전체 목록 조회
-    public Map<String, Object> selectAllMinutes() {
+    public Map<String, Object> selectAllMeetingLog() {
         Map<String, Object> response = new HashMap<>();
 
-        List<MinutesDTO> list = minutesDAO.selectAllMinutes();
+        List<MeetingLogDTO> list = meetingLogDAO.selectAllMeetingLog();
 
         if (list != null && !list.isEmpty()) {
             response.put("status", 0);
@@ -35,9 +35,9 @@ public class MinutesService {
 
 
     // 회의록 등록
-    public Map<String, Object> insertMinutes(MinutesDTO dto) {
+    public Map<String, Object> insertMeetingLog(MeetingLogDTO dto) {
         Map<String, Object> response = new HashMap<>();
-        boolean result = minutesDAO.insert(dto);
+        boolean result = meetingLogDAO.insert(dto);
 
         if (result) {
             response.put("status", 0); // 성공
@@ -50,9 +50,9 @@ public class MinutesService {
     }
 
     // 회의록 조회
-    public Map<String, Object> selectMinutes(MinutesDTO dto) {
+    public Map<String, Object> selectMeetingLog(MeetingLogDTO dto) {
         Map<String, Object> response = new HashMap<>();
-        MinutesDTO result = minutesDAO.selectMinutes(dto);
+        MeetingLogDTO result = meetingLogDAO.selectMeetingLog(dto);
 
         if (result != null) {
             response.put("status", 0);
@@ -65,9 +65,9 @@ public class MinutesService {
     }
 
     // 회의록 수정
-    public Map<String, Object> updateMinutes(MinutesDTO dto) {
+    public Map<String, Object> updateMeetingLog(MeetingLogDTO dto) {
         Map<String, Object> response = new HashMap<>();
-        boolean result = minutesDAO.updateMinutes(dto);
+        boolean result = meetingLogDAO.updateMeetingLog(dto);
 
         if (result) {
             response.put("status", 0);
@@ -80,9 +80,9 @@ public class MinutesService {
     }
 
     // 회의록 삭제
-    public Map<String, Object> deleteMinutes(MinutesDTO dto) {
+    public Map<String, Object> deleteMeetingLog(MeetingLogDTO dto) {
         Map<String, Object> response = new HashMap<>();
-        boolean result = minutesDAO.deleteMinutes(dto);
+        boolean result = meetingLogDAO.deleteMeetingLog(dto);
 
         if (result) {
             response.put("status", 0);
