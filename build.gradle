@@ -7,6 +7,11 @@ plugins {
 group = 'codeIn.back'
 version = '0.0.1-SNAPSHOT'
 
+bootJar {
+    archiveFileName = 'tf-back.jar'
+}
+
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(23)
