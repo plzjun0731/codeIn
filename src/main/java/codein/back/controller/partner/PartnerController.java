@@ -46,7 +46,7 @@ public class PartnerController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/deletePartner")
+    @DeleteMapping("/deletePartner")
     public ResponseEntity<Map<String, Object>> deletePartner(@RequestBody PartnerDTO partnerDTO) {
         Map<String, Object> response = partnerService.deletePartner(partnerDTO);
 
